@@ -37,7 +37,7 @@ export default function Login() {
       if (contentType && contentType.includes("application/json")) {
         data = await res.json();
       } else {
-        throw new Error("Unexpected server response");
+        throw new Error("Unexpected server response.");
       }
 
       if (!res.ok) {
@@ -47,7 +47,7 @@ export default function Login() {
       localStorage.setItem("token", data.token);
       router.push("/dashboard");
     } catch (err) {
-      setError(err.message || " Something went wrong");
+      setError(err.message || "Something went wrong");
     }
   };
 

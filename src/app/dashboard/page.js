@@ -1,37 +1,59 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { useRouter } from "next/navigation";
+import KYCForm from "../components/KYCForm";
+import AddedUsersList from "../components/AddedUsersList";
+import UserDetailsModal from "../components/UserDetailsModal";
 import TreeNode from "./TreeNode";
 
-export default function Dashboard() {
+const Dashboard = () => {
   const [formData, setFormData] = useState({
     name: "",
+    fatherName: "",
+    dob: "",
+    gender: "",
+    maritalStatus: "",
+    phone: "",
     email: "",
+    nomineeName: "",
+    nomineeRelation: "",
+    nomineePhone: "",
+    address: "",
+    pinCode: "",
+    bankName: "",
+    branchAddress: "",
+    accountNo: "",
+    accountType: "",
+    ifscCode: "",
+    micrNo: "",
+    panNo: "",
+    aadhaarNo: "",
+    sponsorName: "",
+    sponsorId: "",
     password: "",
   });
-  const [message, setMessage] = useState("");
+
+  const [myAddedUsers, setMyAddedUsers] = useState([]);
+  const [selectedUser, setSelectedUser] = useState(null);
   const [tree, setTree] = useState(null);
+
+  const [message, setMessage] = useState("");
   const router = useRouter();
 
-  const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
-
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    router.push("/auth/login");
-  };
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
   const fetchTree = async () => {
     try {
-      const res = await fetch(`${API_BASE_URL}/api/users/tree`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/users/tree`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
       const data = await res.json();
       setTree(data);
     } catch (err) {
@@ -39,84 +61,118 @@ export default function Dashboard() {
     }
   };
 
-  const addUser = async () => {
+  const fetchMyAddedUsers = async () => {
     try {
-      const res = await fetch(`${API_BASE_URL}/api/users/add-user`, {
-        method: "POST",
+      const token = localStorage.getItem("token");
+      const res = await fetch(`${baseURL}/api/users/my-children`, {
         headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      setMyAddedUsers(data.children);
+    } catch (error) {
+      console.error("Failed to fetch added users", error);
+    }
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleUserAdd = async () => {
+    try {
+      const token = localStorage.getItem("token");
+
+      const cleanedFormData = { ...formData };
+
+      if (!cleanedFormData.sponsorId) {
+        delete cleanedFormData.sponsorId;
+      }
+
+      await axios.post(`${baseURL}/api/users/add-user`, cleanedFormData, {
+        headers: { Authorization: `Bearer ${token}` },
       });
 
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.message || "Something went wrong");
-
-      setMessage("User added successfully");
-      setFormData({ name: "", email: "", password: "" });
-      fetchTree(); 
-      setMessage("no data" + err.message);
+      setMessage("User added successfully!");
+      setFormData({
+        name: "",
+        fatherName: "",
+        dob: "",
+        gender: "",
+        maritalStatus: "",
+        phone: "",
+        email: "",
+        nomineeName: "",
+        nomineeRelation: "",
+        nomineePhone: "",
+        address: "",
+        pinCode: "",
+        bankName: "",
+        branchAddress: "",
+        accountNo: "",
+        accountType: "",
+        ifscCode: "",
+        micrNo: "",
+        panNo: "",
+        aadhaarNo: "",
+        sponsorName: "",
+        sponsorId: "",
+        password: "",
+      });
+      fetchTree();
+    } catch (error) {
+      console.error(
+        "Failed to add user:",
+        error.response?.data || error.message
+      );
+      setMessage("Failed to add user. Please try again.");
     }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    router.push("/auth/login");
   };
 
   useEffect(() => {
     fetchTree();
+    fetchMyAddedUsers();
   }, []);
 
   return (
-    <div className="p-6 space-y-6">
-      <h1 className="text-2xl font-bold">User Dashboard</h1>
+    <div className="max-w-6xl mx-auto p-6 space-y-6">
+      <div className="flex justify-between items-center mb-4">
+        <h1 className="text-2xl font-bold">Dashboard</h1>
 
-      <div className="bg-gray-100 p-4 rounded-md shadow">
-        <h2 className="text-xl font-semibold mb-2">Add New User</h2>
-        <input
-          type="text"
-          name="name"
-          placeholder="Name"
-          value={formData.name}
-          onChange={handleChange}
-          className="block mb-2 p-2 border border-gray-300 rounded w-full"
-        />
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={formData.email}
-          onChange={handleChange}
-          className="block mb-2 p-2 border border-gray-300 rounded w-full"
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={formData.password}
-          onChange={handleChange}
-          className="block mb-4 p-2 border border-gray-300 rounded w-full"
-        />
-        <button
-          onClick={addUser}
-          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-        >
-          ➕ Add User
-        </button>
-        {message && <p className="mt-2 text-sm text-red-600">{message}</p>}
-      </div>
-
-      <div className="flex justify-end">
         <button
           onClick={handleLogout}
-          className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
+          className="bg-red-500 text-white px-4 py-2 rounded"
         >
-          🔓 Logout
+          Logout
         </button>
       </div>
-
-
-      <div>
-        <h2 className="text-xl font-semibold mb-4">User Tree Structure</h2>
-        {tree ? <TreeNode node={tree} /> : <p>Loading tree...</p>}
+      <KYCForm
+        formData={formData}
+        handleChange={handleChange}
+        handleUserAdd={handleUserAdd}
+        message={message}
+        myAddedUsers={myAddedUsers}
+      />
+      <div className="w-full h-[80vh] overflow-auto p-6 bg-gray-50">
+        <div className="min-w-max mx-auto">
+          {tree ? <TreeNode node={tree} /> : <p>Loading tree...</p>}
+        </div>
       </div>
+
+      <AddedUsersList />
+      <UserDetailsModal
+        selectedUser={selectedUser}
+        onClose={() => setSelectedUser(null)}
+      />
     </div>
   );
-}
+};
+
+export default Dashboard;
