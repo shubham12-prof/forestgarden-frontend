@@ -23,8 +23,8 @@ const ContactMain = () => {
             Contact Us
           </h2>
           <p className="text-gray-700 dark:text-gray-300 text-base sm:text-lg max-w-2xl mx-auto">
-            We'd love to hear from you! Reach out via phone, WhatsApp, or visit
-            our office.
+            We&apos;d love to hear from you! Reach out via phone, WhatsApp, or
+            visit our office.
           </p>
         </div>
 
