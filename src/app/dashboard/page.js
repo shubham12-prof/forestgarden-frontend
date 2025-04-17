@@ -131,27 +131,17 @@ const Dashboard = () => {
     }
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    router.push("/auth/login");
-  };
-
   useEffect(() => {
     fetchTree();
     fetchMyAddedUsers();
   }, []);
 
   return (
-    <div className="max-w-6xl mx-auto p-6 space-y-6">
+    <div className="max-w-6xl mx-auto p-6 space-y-6 ">
       <div className="flex justify-between items-center mb-4">
-        <h1 className="text-2xl font-bold">Dashboard</h1>
-
-        <button
-          onClick={handleLogout}
-          className="bg-red-500 text-white px-4 py-2 rounded"
-        >
-          Logout
-        </button>
+        <h1 className="text-2xl font-bold mt-30 w-full text-center">
+          Dashboard
+        </h1>
       </div>
       <KYCForm
         formData={formData}

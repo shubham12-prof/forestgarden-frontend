@@ -9,11 +9,23 @@ const Navbar = () => {
   const [navOpen, setNavOpen] = useState(false);
   const [showProjectDropdown, setShowProjectDropdown] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
 
-  const handleLoginClick = () => {
-    router.push("/auth/register");
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    setIsLoggedIn(!!token);
+  }, [pathname]);
+
+  const handleAuthClick = () => {
+    if (isLoggedIn) {
+      localStorage.removeItem("token");
+      setIsLoggedIn(false);
+      router.push("/auth/login");
+    } else {
+      router.push("/auth/register");
+    }
   };
 
   const navLinks = [
@@ -122,10 +134,10 @@ const Navbar = () => {
           </button>
 
           <button
-            onClick={handleLoginClick}
+            onClick={handleAuthClick}
             className="ml-4 bg-green-500 hover:bg-green-600 transition-all duration-200 text-white px-5 py-2 rounded-full text-sm font-semibold shadow-md"
           >
-            LOGIN
+            {isLoggedIn ? "LOGOUT" : "LOGIN"}
           </button>
         </nav>
 
@@ -190,12 +202,12 @@ const Navbar = () => {
           )}
           <button
             onClick={() => {
-              handleLoginClick();
+              handleAuthClick();
               setNavOpen(false);
             }}
             className="bg-green-500 hover:bg-green-600 text-white px-5 py-2 mt-3 rounded-full text-sm font-semibold shadow"
           >
-            LOGIN
+            {isLoggedIn ? "LOGOUT" : "LOGIN"}
           </button>
         </nav>
       </div>

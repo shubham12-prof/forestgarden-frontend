@@ -9,7 +9,7 @@ const UserDetailsModal = ({ selectedUserId, onClose }) => {
     if (selectedUserId) {
       setLoading(true);
       axios
-        .get(`http://localhost:5000/users/${selectedUserId}`)
+        .get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/users/${selectedUserId}`)
         .then((response) => {
           setUserDetails(response.data);
           setLoading(false);
@@ -25,33 +25,38 @@ const UserDetailsModal = ({ selectedUserId, onClose }) => {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white p-6 rounded-lg max-w-md w-full">
-        <h2 className="text-xl font-semibold mb-4">User Details</h2>
+      <div className="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 p-6 rounded-lg max-w-md w-full shadow-lg border border-gray-200 dark:border-gray-700">
+        <h2 className="text-xl font-bold mb-4 text-center">User Details</h2>
 
         {loading ? (
-          <p>Loading...</p>
+          <p className="text-center text-gray-600 dark:text-gray-400">
+            Loading...
+          </p>
         ) : userDetails ? (
-          <>
+          <div className="space-y-2 text-sm">
             <p>
-              <strong>Name:</strong> {userDetails.name}
+              <span className="font-semibold">Name:</span> {userDetails.name}
             </p>
             <p>
-              <strong>Email:</strong> {userDetails.email}
+              <span className="font-semibold">Email:</span> {userDetails.email}
             </p>
             <p>
-              <strong>Phone:</strong> {userDetails.phone}
+              <span className="font-semibold">Phone:</span> {userDetails.phone}
             </p>
             <p>
-              <strong>Address:</strong> {userDetails.address}
+              <span className="font-semibold">Address:</span>{" "}
+              {userDetails.address}
             </p>
-          </>
+          </div>
         ) : (
-          <p className="text-red-500">Failed to load user details.</p>
+          <p className="text-red-500 text-center">
+            Failed to load user details.
+          </p>
         )}
 
         <button
           onClick={onClose}
-          className="mt-4 bg-red-500 text-white px-4 py-2 rounded"
+          className="mt-6 w-full bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded transition"
         >
           Close
         </button>

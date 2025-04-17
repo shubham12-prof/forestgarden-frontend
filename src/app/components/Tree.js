@@ -10,7 +10,7 @@ export default function TreePage() {
     const fetchTree = async () => {
       try {
         const res = await fetch(
-          "https://usertreebackend.onrender.com/api/users/my-tree",
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/users/my-tree`,
           {
             method: "GET",
             headers: {

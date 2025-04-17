@@ -11,7 +11,7 @@ const AddedUsersList = () => {
     try {
       setLoading(true);
       const response = await fetch(
-        "https://usertreebackend.onrender.com/api/users/my-children",
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/users/my-children`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
