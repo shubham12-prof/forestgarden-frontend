@@ -75,9 +75,9 @@ const PropertyGallery = () => {
               height={300}
               className="w-full h-64 object-cover transform group-hover:scale-105 transition duration-300"
             />
-            <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-4 text-center text-lg font-semibold">
+            {/* <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-4 text-center text-lg font-semibold">
               {property.title}
-            </div>
+            </div> */}
           </div>
         ))}
       </div>
