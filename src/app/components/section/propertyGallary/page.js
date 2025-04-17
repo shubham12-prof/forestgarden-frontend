@@ -62,22 +62,24 @@ const PropertyGallery = () => {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
-        {properties.map((property) => (
-          <div
-            // key={property.id}
-            // onClick={() => handleClick(property.id)}
-            className="cursor-pointer group relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition duration-300"
-          >
-            <Image
-              src={property.image}
-              alt={property.title}
-              className="w-full h-64 object-cover transform group-hover:scale-105 transition duration-300"
-            />
-            {/* <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-4 text-center text-lg font-semibold">
+        {/* {properties.map((property) => ( */}
+        <div
+          // key={property.id}
+          // onClick={() => handleClick(property.id)}
+          className="cursor-pointer group relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition duration-300"
+        >
+          <Image
+            src={property.image}
+            alt={property.title}
+            className="w-full h-64 object-cover transform group-hover:scale-105 transition duration-300"
+          />
+          {/* <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-4 text-center text-lg font-semibold">
               {property.title}
             </div> */}
-          </div>
-        ))}
+        </div>
+        {/* ) */}
+        {/* ) */}
+        {/* } */}
       </div>
     </section>
   );
