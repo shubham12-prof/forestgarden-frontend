@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 
 const InfoSection = () => {
@@ -5,7 +6,7 @@ const InfoSection = () => {
     <section className="bg-white dark:bg-gray-900 py-12 px-4 md:px-8 lg:px-16">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-10">
         <div className="w-full md:w-1/2">
-          <img
+          <Image
             src="https://res.cloudinary.com/dmj6ur8sm/image/upload/v1744831224/ojksk1fguu0x6idd17ys.jpg"
             alt="About Us"
             className="w-full h-full rounded-2xl shadow-lg object-cover"

@@ -2,6 +2,7 @@
 
 import React from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 const PropertyGallery = () => {
   const router = useRouter();
@@ -67,7 +68,7 @@ const PropertyGallery = () => {
             // onClick={() => handleClick(property.id)}
             className="cursor-pointer group relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition duration-300"
           >
-            <img
+            <Image
               src={property.image}
               alt={property.title}
               className="w-full h-64 object-cover transform group-hover:scale-105 transition duration-300"

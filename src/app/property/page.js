@@ -81,9 +81,9 @@ const PropertyGallery = () => {
     },
   ];
 
-  // const handleClick = (id) => {
-  //   router.push(`/property/${id}`);
-  // };
+  const handleClick = (id) => {
+    router.push(`/property/${id}`);
+  };
 
   return (
     <section className="bg-white mt-25 dark:bg-gray-900 py-12 px-4 md:px-8 lg:px-16">
@@ -99,8 +99,8 @@ const PropertyGallery = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
         {properties.map((property) => (
           <div
-            // key={property.id}
-            // onClick={() => handleClick(property.id)}
+            key={property.id}
+            onClick={() => handleClick(property.id)}
             className="cursor-pointer group relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition duration-300"
           >
             <img
