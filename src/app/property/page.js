@@ -27,19 +27,19 @@ const PropertyGallery = () => {
       title: "Modern Office Space",
     },
     {
-      id: "plot-1",
+      id: "plot-2",
       image:
         "https://res.cloudinary.com/dmj6ur8sm/image/upload/v1744829153/sylon71yhel1hqgxpz0j.jpg",
       title: "Premium Plot in Saharanpur",
     },
     {
-      id: "home-1",
+      id: "home-2",
       image:
         "https://res.cloudinary.com/dmj6ur8sm/image/upload/v1744829154/hmzph11yv4cn8w0xtrih.jpg",
       title: "Elegant Family Home",
     },
     {
-      id: "office-1",
+      id: "office-2",
       image:
         "https://res.cloudinary.com/dmj6ur8sm/image/upload/v1744829154/oufhnwfnee7bsrsa39vl.jpg",
       title: "Modern Office Space",
@@ -63,19 +63,19 @@ const PropertyGallery = () => {
       title: "Modern Office Space",
     },
     {
-      id: "plot-1",
+      id: "plot-2",
       image:
         "https://res.cloudinary.com/dmj6ur8sm/image/upload/v1744829153/sylon71yhel1hqgxpz0j.jpg",
       title: "Premium Plot in Saharanpur",
     },
     {
-      id: "home-1",
+      id: "home-2",
       image:
         "https://res.cloudinary.com/dmj6ur8sm/image/upload/v1744829154/hmzph11yv4cn8w0xtrih.jpg",
       title: "Elegant Family Home",
     },
     {
-      id: "office-1",
+      id: "office-2",
       image:
         "https://res.cloudinary.com/dmj6ur8sm/image/upload/v1744829154/oufhnwfnee7bsrsa39vl.jpg",
       title: "Modern Office Space",
@@ -87,7 +87,7 @@ const PropertyGallery = () => {
   };
 
   return (
-    <section className="bg-white mt-25 dark:bg-gray-900 py-12 px-4 md:px-8 lg:px-16">
+    <section className="bg-white dark:bg-gray-900 py-37 px-4 md:px-8 lg:px-16">
       <div className="max-w-7xl mx-auto text-center mb-10">
         <h2 className="text-3xl md:text-4xl font-extrabold text-green-600 dark:text-green-400 mb-4">
           Featured Properties
@@ -107,6 +107,8 @@ const PropertyGallery = () => {
             <Image
               src={property.image}
               alt={property.title}
+              width={400}
+              height={300}
               className="w-full h-64 object-cover transform group-hover:scale-105 transition duration-300"
             />
             {/* <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-4 text-center text-lg font-semibold">
