@@ -9,6 +9,8 @@ const InfoSection = () => {
           <Image
             src="https://res.cloudinary.com/dmj6ur8sm/image/upload/v1744831224/ojksk1fguu0x6idd17ys.jpg"
             alt="About Us"
+            width={800}
+            height={600}
             className="w-full h-full rounded-2xl shadow-lg object-cover"
           />
         </div>
