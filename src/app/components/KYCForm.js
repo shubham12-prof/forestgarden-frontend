@@ -141,19 +141,28 @@ const KYCForm = ({
       {myAddedUsers.map((user) => (
         <div
           key={user._id}
-          className={`p-4 rounded shadow mt-4 ${
-            isDark ? "bg-gray-800 text-white" : "bg-white text-gray-800"
+          className={`p-4 rounded-xl border shadow transition duration-200 ${
+            isDark
+              ? "bg-gray-800 text-gray-100 border-green-700"
+              : "bg-white text-gray-800 border-green-200"
           }`}
         >
-          <p>
-            <strong>Name:</strong> {user.name}
+          <p className="mb-1">
+            <strong className="text-green-600 dark:text-green-400">
+              Name:
+            </strong>{" "}
+            {user.name}
           </p>
-          <p>
-            <strong>Email:</strong> {user.email}
+          <p className="mb-3">
+            <strong className="text-green-600 dark:text-green-400">
+              Email:
+            </strong>{" "}
+            {user.email}
           </p>
+
           <button
             onClick={() => handleDeleteUser(user._id)}
-            className="mt-2 bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded"
+            className="bg-red-500 hover:bg-red-600 text-white py-1 px-4 rounded-md shadow-sm transition duration-150"
           >
             🗑️ Delete User
           </button>

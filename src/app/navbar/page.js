@@ -57,7 +57,7 @@ const Navbar = () => {
           <motion.img
             src={process.env.NEXT_PUBLIC_CLOUDINARY_LOGO}
             alt="Logo"
-            className="w-24 h-24 rounded-full shadow-2xl hover:shadow-xl transition-all duration-300 ease-in-out"
+            className="w-26 h-20 rounded-full shadow-2xl hover:shadow-xl transition-all duration-300 ease-in-out"
             whileHover={{
               rotate: 15,
               scale: 1.1,
