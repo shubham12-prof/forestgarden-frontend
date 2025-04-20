@@ -121,6 +121,21 @@ const KYCForm = ({
               </div>
             );
           })}
+
+          <div key="isAdmin" className="flex flex-col">
+            <label className="mb-1 font-medium">Is Admin</label>
+            <input
+              type="checkbox"
+              name="isAdmin"
+              checked={formData.isAdmin || false}
+              onChange={handleChange}
+              className={`p-3 border rounded-md focus:outline-none focus:ring-2 ${
+                isDark
+                  ? "bg-gray-800 border-gray-600 text-white focus:ring-blue-400"
+                  : "border-gray-300 focus:ring-blue-500"
+              }`}
+            />
+          </div>
         </div>
       )}
 

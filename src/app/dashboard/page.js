@@ -33,6 +33,7 @@ const Dashboard = () => {
     sponsorName: "",
     sponsorId: "",
     password: "",
+    isAdmin: false,
   });
 
   const [myAddedUsers, setMyAddedUsers] = useState([]);
@@ -62,9 +63,7 @@ const Dashboard = () => {
     try {
       const token = localStorage.getItem("token");
       const res = await fetch(`${baseURL}/api/users/my-children`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();
       setMyAddedUsers(data.children || []);
@@ -81,43 +80,17 @@ const Dashboard = () => {
   const handleUserAdd = async () => {
     try {
       const token = localStorage.getItem("token");
-
       const cleanedFormData = { ...formData };
-      if (!cleanedFormData.sponsorId) {
-        delete cleanedFormData.sponsorId;
-      }
+      if (!cleanedFormData.sponsorId) delete cleanedFormData.sponsorId;
 
       await axios.post(`${baseURL}/api/users/add-user`, cleanedFormData, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
       setMessage("User added successfully!");
-      setFormData({
-        name: "",
-        fatherName: "",
-        dob: "",
-        gender: "",
-        maritalStatus: "",
-        phone: "",
-        email: "",
-        nomineeName: "",
-        nomineeRelation: "",
-        nomineePhone: "",
-        address: "",
-        pinCode: "",
-        bankName: "",
-        branchAddress: "",
-        accountNo: "",
-        accountType: "",
-        ifscCode: "",
-        micrNo: "",
-        panNo: "",
-        aadhaarNo: "",
-        sponsorName: "",
-        sponsorId: "",
-        password: "",
-      });
-
+      setFormData(
+        Object.keys(formData).reduce((acc, key) => ({ ...acc, [key]: "" }), {})
+      );
       fetchTree();
       fetchMyAddedUsers();
     } catch (error) {
@@ -129,9 +102,9 @@ const Dashboard = () => {
     }
   };
 
-  const handleEditUser = async (userId) => {
+  const handleEditUser = (userId) => {
     const userToEdit = myAddedUsers.find((user) => user._id === userId);
-    setEditFormData(userToEdit);
+    if (userToEdit) setEditFormData(userToEdit);
   };
 
   const handleSaveEditedUser = async () => {
@@ -139,11 +112,9 @@ const Dashboard = () => {
       const token = localStorage.getItem("token");
       const userId = editFormData._id;
 
-      const updatedUserData = { ...editFormData };
-
       await axios.put(
         `${baseURL}/api/users/update-user/${userId}`,
-        updatedUserData,
+        editFormData,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -169,11 +140,7 @@ const Dashboard = () => {
 
   return (
     <div className="max-w-6xl mx-auto p-6 space-y-6">
-      <div className="flex justify-between items-center mb-4">
-        <h1 className="text-2xl font-bold mt-30 w-full text-center">
-          Dashboard
-        </h1>
-      </div>
+      <h1 className="text-2xl font-bold text-center">Dashboard</h1>
 
       <KYCForm
         formData={formData}
