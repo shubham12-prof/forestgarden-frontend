@@ -13,7 +13,7 @@ const EditUserForm = ({
       </label>
       {isAdminField ? (
         <select
-          value={editFormData[key] || false}
+          value={editFormData[key] ? "true" : "false"}
           onChange={(e) =>
             setEditFormData({
               ...editFormData,
@@ -22,8 +22,8 @@ const EditUserForm = ({
           }
           className="mt-1 p-2 w-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-black dark:text-white rounded-lg"
         >
-          <option value={false}>User</option>
-          <option value={true}>Admin</option>
+          <option value="false">User</option>
+          <option value="true">Admin</option>
         </select>
       ) : (
         <input
