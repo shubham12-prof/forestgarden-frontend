@@ -81,6 +81,14 @@ const AddedUsersList = () => {
           body: JSON.stringify(editFormData),
         }
       );
+      console.log(
+        "URL:",
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/users/${editFormData._id}`
+      );
+      console.log("Body being sent:", editFormData);
+
+      console.log("token", localStorage.getItem("token"));
+
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.message || "Failed to update user");
