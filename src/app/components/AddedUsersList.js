@@ -64,7 +64,26 @@ const AddedUsersList = () => {
   };
 
   const handleEditUser = (user) => {
-    setEditFormData({ ...user });
+    let formattedDOB = "";
+
+    if (user.dob && typeof user.dob === "string") {
+      if (user.dob.includes("/")) {
+        const [day, month, year] = user.dob.split("/");
+        if (day && month && year) {
+          formattedDOB = `${year}-${month.padStart(2, "0")}-${day.padStart(
+            2,
+            "0"
+          )}`;
+        }
+      } else {
+        formattedDOB = user.dob;
+      }
+    }
+
+    setEditFormData({
+      ...user,
+      dob: formattedDOB,
+    });
   };
 
   const handleSaveChanges = async (e) => {
