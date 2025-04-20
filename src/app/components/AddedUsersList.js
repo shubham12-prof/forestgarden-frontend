@@ -163,8 +163,10 @@ const AddedUsersList = () => {
                         <strong>Father:</strong> {user.fatherName}
                       </p>
                       <p>
-                        <strong>DOB:</strong> {user.dob}
+                        <strong>Date of Birth:</strong>{" "}
+                        {new Date(user.dob).toLocaleDateString()}
                       </p>
+
                       <p>
                         <strong>Gender:</strong> {user.gender}
                       </p>

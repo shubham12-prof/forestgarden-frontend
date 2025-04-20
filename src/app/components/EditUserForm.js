@@ -12,19 +12,19 @@ const EditUserForm = ({
         {label}
       </label>
       {isAdminField ? (
-        <select
-          value={editFormData[key] ? "true" : "false"}
-          onChange={(e) =>
-            setEditFormData({
-              ...editFormData,
-              [key]: e.target.value === "true",
-            })
-          }
-          className="mt-1 p-2 w-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-black dark:text-white rounded-lg"
-        >
-          <option value="false">User</option>
-          <option value="true">Admin</option>
-        </select>
+        <div className="mb-3">
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+            Admin:
+          </label>
+          <input
+            type="checkbox"
+            checked={editFormData.isAdmin || false}
+            onChange={(e) =>
+              setEditFormData({ ...editFormData, isAdmin: e.target.checked })
+            }
+            className="mt-1 p-2 w-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-black dark:text-white rounded-lg"
+          />
+        </div>
       ) : (
         <input
           type={type}
@@ -68,7 +68,7 @@ const EditUserForm = ({
             {renderInput("Aadhaar No", "aadhaarNo")}
             {renderInput("Sponsor Name", "sponsorName")}
             {renderInput("Sponsor ID", "sponsorId")}
-            {renderInput("Admin", "isAdmin", "select", true)}{" "}
+            {renderInput("Admin", "isAdmin", "checkbox", true)}{" "}
           </div>
 
           <div className="flex justify-between mt-6">
