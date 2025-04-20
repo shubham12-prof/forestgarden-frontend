@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   FaPhoneAlt,
   FaEnvelope,
@@ -17,6 +17,15 @@ const AddedUsersList = () => {
   const [error, setError] = useState(null);
   const [expandedUserIds, setExpandedUserIds] = useState([]);
   const [editFormData, setEditFormData] = useState(null);
+  const [successMsg, setSuccessMsg] = useState("");
+
+  useEffect(() => {
+    if (editFormData) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  }, [editFormData]);
 
   const fetchAddedUsers = async () => {
     try {
@@ -35,8 +44,9 @@ const AddedUsersList = () => {
       }
       const data = await response.json();
       setMyAddedUsers(data.children || []);
+      setError(null);
     } catch (err) {
-      setError(err.message || "Failed to fetch added users");
+      setError(err.message);
     } finally {
       setLoading(false);
     }
@@ -45,7 +55,6 @@ const AddedUsersList = () => {
   useEffect(() => {
     fetchAddedUsers();
   }, []);
-
   const toggleExpand = (userId) => {
     setExpandedUserIds((prev) =>
       prev.includes(userId)
@@ -76,26 +85,27 @@ const AddedUsersList = () => {
         const errorData = await response.json();
         throw new Error(errorData.message || "Failed to update user");
       }
+      setSuccessMsg("User updated successfully!");
       fetchAddedUsers();
       setEditFormData(null);
+      setTimeout(() => setSuccessMsg(""), 3000);
     } catch (err) {
       setError(err.message || "Failed to update user");
     }
   };
 
-  if (loading) return <p className="text-gray-500">Loading...</p>;
-  if (error) return <p className="text-red-500">{error}</p>;
-
   const renderInput = (label, key, type = "text") => (
     <div className="mb-3">
-      <label className="block text-sm font-medium text-gray-700">{label}</label>
+      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+        {label}
+      </label>
       <input
         type={type}
         value={editFormData[key] || ""}
         onChange={(e) =>
           setEditFormData({ ...editFormData, [key]: e.target.value })
         }
-        className="mt-1 p-2 w-full border border-gray-300 rounded-lg"
+        className="mt-1 p-2 w-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-black dark:text-white rounded-lg"
       />
     </div>
   );
@@ -113,7 +123,21 @@ const AddedUsersList = () => {
         Refresh
       </button>
 
-      {myAddedUsers.length > 0 ? (
+      {successMsg && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="text-center mb-4 text-green-600 font-semibold"
+        >
+          {successMsg}
+        </motion.div>
+      )}
+
+      {loading ? (
+        <p className="text-center text-gray-500">Loading...</p>
+      ) : error ? (
+        <p className="text-center text-red-500">{error}</p>
+      ) : myAddedUsers.length > 0 ? (
         <div className="space-y-6">
           {myAddedUsers.map((user) => {
             const isExpanded = expandedUserIds.includes(user._id);
@@ -138,82 +162,85 @@ const AddedUsersList = () => {
                   )}
                 </div>
 
-                {isExpanded && (
-                  <motion.div
-                    layout
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 text-sm"
-                  >
-                    <p>
-                      <strong>Father:</strong> {user.fatherName}
-                    </p>
-                    <p>
-                      <strong>DOB:</strong> {user.dob}
-                    </p>
-                    <p>
-                      <strong>Gender:</strong> {user.gender}
-                    </p>
-                    <p>
-                      <strong>Status:</strong> {user.maritalStatus}
-                    </p>
-                    <p className="flex items-center gap-2">
-                      <FaPhoneAlt /> {user.phone}
-                    </p>
-                    <p className="flex items-center gap-2">
-                      <FaEnvelope /> {user.email}
-                    </p>
-                    <p>
-                      <strong>Nominee:</strong> {user.nomineeName}
-                    </p>
-                    <p>
-                      <strong>Nominee Phone:</strong> {user.nomineePhone}
-                    </p>
-                    <p className="flex items-center gap-2">
-                      <FaMapMarkerAlt /> {user.address}
-                    </p>
-                    <p>
-                      <strong>Pin:</strong> {user.pinCode}
-                    </p>
-                    <p>
-                      <strong>Bank:</strong> {user.bankName}
-                    </p>
-                    <p>
-                      <strong>Branch:</strong> {user.branchAddress}
-                    </p>
-                    <p>
-                      <strong>Account:</strong> {user.accountNo}
-                    </p>
-                    <p>
-                      <strong>Type:</strong> {user.accountType}
-                    </p>
-                    <p>
-                      <strong>IFSC:</strong> {user.ifscCode}
-                    </p>
-                    <p>
-                      <strong>MICR:</strong> {user.micrNo}
-                    </p>
-                    <p>
-                      <strong>PAN:</strong> {user.panNo}
-                    </p>
-                    <p>
-                      <strong>Aadhaar:</strong> {user.aadhaarNo}
-                    </p>
-                    <p className="flex items-center gap-2">
-                      <FaUserFriends /> {user.sponsorName}
-                    </p>
-                    <p>
-                      <strong>Sponsor ID:</strong> {user.sponsorId}
-                    </p>
-
-                    <button
-                      onClick={() => handleEditUser(user)}
-                      className="mt-4 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg"
+                <AnimatePresence>
+                  {isExpanded && (
+                    <motion.div
+                      layout
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 text-sm"
                     >
-                      Edit
-                    </button>
-                  </motion.div>
-                )}
+                      <p>
+                        <strong>Father:</strong> {user.fatherName}
+                      </p>
+                      <p>
+                        <strong>DOB:</strong> {user.dob}
+                      </p>
+                      <p>
+                        <strong>Gender:</strong> {user.gender}
+                      </p>
+                      <p>
+                        <strong>Status:</strong> {user.maritalStatus}
+                      </p>
+                      <p className="flex items-center gap-2">
+                        <FaPhoneAlt /> {user.phone}
+                      </p>
+                      <p className="flex items-center gap-2">
+                        <FaEnvelope /> {user.email}
+                      </p>
+                      <p>
+                        <strong>Nominee:</strong> {user.nomineeName}
+                      </p>
+                      <p>
+                        <strong>Nominee Phone:</strong> {user.nomineePhone}
+                      </p>
+                      <p className="flex items-center gap-2">
+                        <FaMapMarkerAlt /> {user.address}
+                      </p>
+                      <p>
+                        <strong>Pin:</strong> {user.pinCode}
+                      </p>
+                      <p>
+                        <strong>Bank:</strong> {user.bankName}
+                      </p>
+                      <p>
+                        <strong>Branch:</strong> {user.branchAddress}
+                      </p>
+                      <p>
+                        <strong>Account:</strong> {user.accountNo}
+                      </p>
+                      <p>
+                        <strong>Type:</strong> {user.accountType}
+                      </p>
+                      <p>
+                        <strong>IFSC:</strong> {user.ifscCode}
+                      </p>
+                      <p>
+                        <strong>MICR:</strong> {user.micrNo}
+                      </p>
+                      <p>
+                        <strong>PAN:</strong> {user.panNo}
+                      </p>
+                      <p>
+                        <strong>Aadhaar:</strong> {user.aadhaarNo}
+                      </p>
+                      <p className="flex items-center gap-2">
+                        <FaUserFriends /> {user.sponsorName}
+                      </p>
+                      <p>
+                        <strong>Sponsor ID:</strong> {user.sponsorId}
+                      </p>
+
+                      <button
+                        onClick={() => handleEditUser(user)}
+                        className="mt-4 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg"
+                      >
+                        Edit
+                      </button>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </motion.div>
             );
           })}
