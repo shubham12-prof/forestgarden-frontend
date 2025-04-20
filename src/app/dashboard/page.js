@@ -38,22 +38,19 @@ const Dashboard = () => {
   const [myAddedUsers, setMyAddedUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
   const [tree, setTree] = useState(null);
-
   const [message, setMessage] = useState("");
+  const [editFormData, setEditFormData] = useState({});
   const router = useRouter();
 
   const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
   const fetchTree = async () => {
     try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/users/tree`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
+      const res = await fetch(`${baseURL}/api/users/tree`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
       const data = await res.json();
       setTree(data);
     } catch (err) {
@@ -70,7 +67,7 @@ const Dashboard = () => {
         },
       });
       const data = await res.json();
-      setMyAddedUsers(data.children);
+      setMyAddedUsers(data.children || []);
     } catch (error) {
       console.error("Failed to fetch added users", error);
     }
@@ -86,7 +83,6 @@ const Dashboard = () => {
       const token = localStorage.getItem("token");
 
       const cleanedFormData = { ...formData };
-
       if (!cleanedFormData.sponsorId) {
         delete cleanedFormData.sponsorId;
       }
@@ -121,7 +117,9 @@ const Dashboard = () => {
         sponsorId: "",
         password: "",
       });
+
       fetchTree();
+      fetchMyAddedUsers();
     } catch (error) {
       console.error(
         "Failed to add user:",
@@ -131,18 +129,52 @@ const Dashboard = () => {
     }
   };
 
+  const handleEditUser = async (userId) => {
+    const userToEdit = myAddedUsers.find((user) => user._id === userId);
+    setEditFormData(userToEdit);
+  };
+
+  const handleSaveEditedUser = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const userId = editFormData._id;
+
+      const updatedUserData = { ...editFormData };
+
+      await axios.put(
+        `${baseURL}/api/users/update-user/${userId}`,
+        updatedUserData,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
+      setMessage("User details updated successfully!");
+      setEditFormData({});
+      fetchTree();
+      fetchMyAddedUsers();
+    } catch (error) {
+      console.error(
+        "Failed to update user:",
+        error.response?.data || error.message
+      );
+      setMessage("Failed to update user. Please try again.");
+    }
+  };
+
   useEffect(() => {
     fetchTree();
     fetchMyAddedUsers();
   }, []);
 
   return (
-    <div className="max-w-6xl mx-auto p-6 space-y-6 ">
+    <div className="max-w-6xl mx-auto p-6 space-y-6">
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-2xl font-bold mt-30 w-full text-center">
           Dashboard
         </h1>
       </div>
+
       <KYCForm
         formData={formData}
         handleChange={handleChange}
@@ -150,16 +182,29 @@ const Dashboard = () => {
         message={message}
         myAddedUsers={myAddedUsers}
       />
-      <div className="w-full h-[80vh] overflow-auto p-6 bg-gray-50">
+
+      <div className="w-full h-[80vh] overflow-auto p-6 bg-gray-50 rounded-xl shadow">
         <div className="min-w-max mx-auto">
-          {tree ? <TreeNode node={tree} /> : <p>Loading tree...</p>}
+          {tree ? (
+            <TreeNode node={tree} />
+          ) : (
+            <p className="text-center text-gray-500">Loading tree...</p>
+          )}
         </div>
       </div>
 
-      <AddedUsersList />
+      <AddedUsersList
+        users={myAddedUsers}
+        onUserClick={setSelectedUser}
+        onEditUser={handleEditUser}
+      />
+
       <UserDetailsModal
         selectedUser={selectedUser}
         onClose={() => setSelectedUser(null)}
+        onSaveEdit={handleSaveEditedUser}
+        editFormData={editFormData}
+        setEditFormData={setEditFormData}
       />
     </div>
   );
