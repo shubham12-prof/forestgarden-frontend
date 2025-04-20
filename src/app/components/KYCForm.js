@@ -47,8 +47,8 @@ const KYCForm = ({
         isDark ? "bg-gray-900 text-white" : "bg-gray-100 text-gray-800"
       }`}
     >
-      <h2 className="text-2xl font-semibold mb-4 text-center">
-        KYC/Registration Form
+      <h2 className="text-2xl uppercase font-semibold mb-4 text-center mt-8">
+        Shakumbhari Devi Forest Garden
       </h2>
 
       {myAddedUsers?.length >= 2 ? (
