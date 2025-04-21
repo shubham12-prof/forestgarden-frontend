@@ -95,7 +95,7 @@ export default function Login() {
           Don&apos;t have an account?
           <button
             className="text-blue-600 font-semibold hover:underline"
-            onClick={() => router.push("/")}
+            onClick={() => router.push("/auth/register")}
           >
             Register
           </button>
