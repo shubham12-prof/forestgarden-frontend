@@ -39,7 +39,7 @@ const Navbar = () => {
 
   const projectDropdown = [
     { name: "Ongoing Projects", path: "/project/ongoing" },
-    { name: "Completed Projects", path: "/project/completed" },
+    // { name: "Completed Projects", path: "/project/completed" },
   ];
 
   useEffect(() => {

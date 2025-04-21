@@ -7,7 +7,7 @@ const InfoSection = () => {
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-10">
         <div className="w-full md:w-1/2">
           <Image
-            src="https://res.cloudinary.com/dmj6ur8sm/image/upload/v1744831224/ojksk1fguu0x6idd17ys.jpg"
+            src="https://res.cloudinary.com/dmj6ur8sm/image/upload/v1745221831/79f6d551-225f-4713-9a47-a82e636144ce.png"
             alt="About Us"
             width={800}
             height={600}

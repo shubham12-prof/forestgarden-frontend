@@ -46,9 +46,9 @@ const InfoSection = () => {
               #1 Place To Find The Perfect Plots
             </p>
             <p className="text-base text-gray-600 dark:text-gray-400 leading-relaxed">
-              MOON HILL VIEW HOME Plots has emerged as a leading real estate
-              name in Saharanpur (U.P), offering affordable residential plots
-              with a strong customer-centric approach. Our focus on quality,
+              FORESTGARDEN Plots has emerged as a leading real estate name in
+              Saharanpur (U.P), offering affordable residential plots with a
+              strong customer-centric approach. Our focus on quality,
               transparency, and sustainability has made us a trusted brand with
               over 6 million sq.ft. delivered and 7 million sq.ft. under
               development. We aim to elevate lifestyles while maintaining the

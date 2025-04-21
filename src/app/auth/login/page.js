@@ -64,6 +64,7 @@ export default function Login() {
             <input
               type="email"
               name="email"
+              autoComplete="email"
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
               value={formData.email}
               onChange={handleChange}
@@ -76,6 +77,7 @@ export default function Login() {
             <input
               type="password"
               name="password"
+              autoComplete="current-password"
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
               value={formData.password}
               onChange={handleChange}

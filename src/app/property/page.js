@@ -92,8 +92,11 @@ const PropertyGallery = () => {
         <h2 className="text-3xl md:text-4xl font-extrabold text-green-600 dark:text-green-400 mb-4">
           Featured Properties
         </h2>
-        <p className="text-gray-800 dark:text-gray-200">
+        <p className="text-gray-800 dark:text-gray-200 mb-6">
           Discover plots, homes, and office spaces hand-picked for you.
+        </p>
+        <p className="text-lg text-gray-600 dark:text-gray-300 italic">
+          Site Location: Badshahibagh Mayapur Roop Pur, Delhi Yamunotri Highway
         </p>
       </div>
 
