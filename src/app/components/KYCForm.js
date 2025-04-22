@@ -65,7 +65,7 @@ const KYCForm = ({
           <p>You cannot add more users at the moment.</p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 uppercase">
           {Object.entries(formData).map(([key, value]) => {
             if (key === "gender" || key === "maritalStatus") {
               const options =
