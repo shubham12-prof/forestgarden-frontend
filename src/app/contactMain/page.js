@@ -23,68 +23,37 @@ const ContactMain = () => {
             Contact Us
           </h2>
           <p className="text-gray-700 dark:text-gray-300 text-base sm:text-lg max-w-2xl mx-auto">
-            We&apos;d love to hear from you! Reach out via phone, WhatsApp, or
-            visit our office.
+            We&apos;d love to hear from you! Reach out via EMail or visit our
+            office.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
           <div className="space-y-8">
-            <div className="flex items-start gap-4">
-              <MapPin
-                className="text-green-600 dark:text-green-400 mt-1"
-                size={24}
-              />
-              <div>
-                <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
-                  Address
+            <div className="text-center mt-10 text-gray-800 dark:text-gray-300 space-y-8">
+              <div className="space-y-3">
+                <h3 className="text-xl font-semibold text-green-600 dark:text-green-400">
+                  <MapPin className="inline-block mr-1" /> Head Office
                 </h3>
-                <p className="text-gray-600 dark:text-gray-400 text-sm">
-                  Main Road, Saharanpur, Uttar Pradesh, India
+                <p>
+                  📍 Badshahibagh Mayapur, RoopPur, Saharanpur (UP) - 247122
                 </p>
               </div>
-            </div>
 
-            <div className="flex items-start gap-4">
-              <Phone
-                className="text-green-600 dark:text-green-400 mt-1"
-                size={24}
-              />
-              <div>
-                <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
-                  Phone
+              <div className="space-y-3">
+                <h3 className="text-xl font-semibold text-green-600 dark:text-green-400">
+                  <MapPin className="inline-block mr-1" /> Branch Office
                 </h3>
-                <p className="text-gray-600 dark:text-gray-400 text-sm">
-                  {phoneNumber}
+                <p>
+                  📍 201, 2nd Floor, Anupam Building, 218 Rama Market,
+                  Pritampura, Delhi - 110034
                 </p>
-                <div className="flex flex-col sm:flex-row gap-3 mt-3">
-                  <button
-                    onClick={handleCall}
-                    className="bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded-xl shadow transition"
-                  >
-                    Call
-                  </button>
-                  <button
-                    onClick={handleWhatsApp}
-                    className="bg-green-500 hover:bg-green-600 text-white px-5 py-2 rounded-xl shadow transition"
-                  >
-                    WhatsApp
-                  </button>
-                </div>
               </div>
-            </div>
 
-            <div className="flex items-start gap-4">
-              <Mail
-                className="text-green-600 dark:text-green-400 mt-1"
-                size={24}
-              />
-              <div>
-                <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
-                  Email
-                </h3>
-                <p className="text-gray-600 dark:text-gray-400 text-sm">
-                  info@yourcompany.com
+              <div className="space-y-3">
+                <p className="flex items-center justify-center gap-2 text-lg">
+                  <Mail className="text-green-600 dark:text-green-400" />
+                  Email Id : forestgarden77@gmail.com
                 </p>
               </div>
             </div>

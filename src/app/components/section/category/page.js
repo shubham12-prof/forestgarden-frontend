@@ -7,9 +7,9 @@ import { LandPlot, Home, Building2 } from "lucide-react";
 const CategoryCards = () => {
   const router = useRouter();
 
-  const handleNavigate = (path) => {
-    router.push(path);
-  };
+  // const handleNavigate = (path) => {
+  //   router.push(path);
+  // };
 
   const categories = [
     {
@@ -51,7 +51,7 @@ const CategoryCards = () => {
         {categories.map((item, index) => (
           <div
             key={index}
-            onClick={() => handleNavigate(item.route)}
+            // onClick={() => handleNavigate(item.route)}
             className="cursor-pointer group border border-gray-200 dark:border-gray-700 rounded-2xl p-6 shadow-md bg-gray-50 dark:bg-gray-800 hover:shadow-xl hover:border-green-500 transition-all duration-300 hover:scale-105"
           >
             <div className="flex flex-col items-center text-center space-y-4">

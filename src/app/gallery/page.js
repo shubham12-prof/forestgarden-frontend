@@ -25,7 +25,7 @@ export default function GalleryPage() {
 
   return (
     <div className="pt-36 px-4">
-      <div className="sticky top-30  transform  z-50 bg-white dark:bg-black py-3 px-4 rounded-xl shadow-lg flex justify-center gap-4">
+      <div className="sticky top-30  transform  z-10 bg-white dark:bg-black py-3 px-4 rounded-xl shadow-lg flex justify-center gap-4">
         <button
           onClick={() => setActiveSection("photos")}
           className={`px-6 py-2 text-md font-semibold rounded-full transition-all duration-300 border 

@@ -32,7 +32,7 @@ const Navbar = () => {
     { name: "HOME", path: "/" },
     { name: "GALLERY", path: "/gallery" },
     { name: "PROPERTY", path: "/property" },
-    { name: "PROJECT", hasDropdown: true },
+    // { name: "PROJECT", hasDropdown: true },
     { name: "ABOUT", path: "/about" },
     { name: "CONTACT", path: "/contactMain" },
   ];
