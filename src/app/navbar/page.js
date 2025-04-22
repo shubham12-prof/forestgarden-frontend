@@ -2,13 +2,12 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Menu, X, ChevronDown, Sun, Moon } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const Navbar = () => {
   const [navOpen, setNavOpen] = useState(false);
   const [showProjectDropdown, setShowProjectDropdown] = useState(false);
-  // const [darkMode, setDarkMode] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
@@ -32,23 +31,13 @@ const Navbar = () => {
     { name: "HOME", path: "/" },
     { name: "GALLERY", path: "/gallery" },
     { name: "PROPERTY", path: "/property" },
-    // { name: "PROJECT", hasDropdown: true },
     { name: "ABOUT", path: "/about" },
     { name: "CONTACT", path: "/contactMain" },
   ];
 
   const projectDropdown = [
     { name: "Ongoing Projects", path: "/project/ongoing" },
-    // { name: "Completed Projects", path: "/project/completed" },
   ];
-
-  // useEffect(() => {
-  //   if (darkMode) {
-  //     document.documentElement.classList.add("dark");
-  //   } else {
-  //     document.documentElement.classList.remove("dark");
-  //   }
-  // }, [darkMode]);
 
   return (
     <header className="bg-white dark:bg-gray-900 shadow-md fixed top-0 left-0 w-full z-50 transition-colors duration-300">
@@ -58,11 +47,7 @@ const Navbar = () => {
             src={process.env.NEXT_PUBLIC_CLOUDINARY_LOGO}
             alt="Logo"
             className="w-26 h-20 rounded-full shadow-2xl hover:shadow-xl transition-all duration-300 ease-in-out"
-            whileHover={{
-              rotate: 15,
-              scale: 1.1,
-              boxShadow: "0px 10px 15px rgba(0, 0, 0, 0.3)",
-            }}
+            whileHover={{ rotate: 15, scale: 1.1 }}
             transition={{ type: "spring", stiffness: 200 }}
             width={76}
             height={76}
@@ -78,60 +63,50 @@ const Navbar = () => {
         </Link>
 
         <nav className="hidden lg:flex gap-4 items-center relative">
-          {navLinks.map((link) =>
-            link.hasDropdown ? (
-              <div
-                key="PROJECT"
-                className="relative group"
-                onMouseEnter={() => setShowProjectDropdown(true)}
-                onMouseLeave={() => setShowProjectDropdown(false)}
-              >
-                <div className="flex items-center gap-1 text-[15px] font-medium text-gray-800 dark:text-gray-100 hover:text-green-500 cursor-pointer">
-                  PROJECT
-                  <ChevronDown size={16} />
-                </div>
-                <AnimatePresence>
-                  {showProjectDropdown && (
-                    <motion.div
-                      initial={{ opacity: 0, y: -5 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -5 }}
-                      className="absolute top-full mt-2 bg-white dark:bg-gray-800 rounded-lg shadow-lg p-2 w-52 z-50"
-                    >
-                      {projectDropdown.map((item) => (
-                        <Link
-                          key={item.name}
-                          href={item.path}
-                          className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-green-100 dark:hover:bg-green-900 rounded-md"
-                        >
-                          {item.name}
-                        </Link>
-                      ))}
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            ) : (
-              <Link
-                key={link.name}
-                href={link.path}
-                className={`text-[15px] font-medium ${
-                  pathname === link.path
-                    ? "text-green-600 dark:text-green-400"
-                    : "text-gray-800 dark:text-gray-200"
-                } hover:text-green-500 transition-all duration-200`}
-              >
-                {link.name}
-              </Link>
-            )
-          )}
+          {navLinks.map((link) => (
+            <Link
+              key={link.name}
+              href={link.path}
+              className={`text-[15px] font-medium ${
+                pathname === link.path
+                  ? "text-green-600 dark:text-green-400"
+                  : "text-gray-800 dark:text-gray-200"
+              } hover:text-green-500 transition-all duration-200`}
+            >
+              {link.name}
+            </Link>
+          ))}
 
-          {/* <button
-            onClick={() => setDarkMode(!darkMode)}
-            className="text-gray-700 dark:text-gray-200 hover:text-green-500 dark:hover:text-green-400 transition"
+          <div
+            className="relative group"
+            onMouseEnter={() => setShowProjectDropdown(true)}
+            onMouseLeave={() => setShowProjectDropdown(false)}
           >
-            {darkMode ? <Sun size={20} /> : <Moon size={20} />}
-          </button> */}
+            <div className="flex items-center gap-1 text-[15px] font-medium text-gray-800 dark:text-gray-100 hover:text-green-500 cursor-pointer">
+              PROJECT
+              <ChevronDown size={16} />
+            </div>
+            <AnimatePresence>
+              {showProjectDropdown && (
+                <motion.div
+                  initial={{ opacity: 0, y: -5 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -5 }}
+                  className="absolute top-full mt-2 bg-white dark:bg-gray-800 rounded-lg shadow-lg p-2 w-52 z-50"
+                >
+                  {projectDropdown.map((item) => (
+                    <Link
+                      key={item.name}
+                      href={item.path}
+                      className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-green-100 dark:hover:bg-green-900 rounded-md"
+                    >
+                      {item.name}
+                    </Link>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
 
           <button
             onClick={handleAuthClick}
@@ -141,13 +116,7 @@ const Navbar = () => {
           </button>
         </nav>
 
-        {/* <div className="lg:hidden flex items-center gap-4">
-          <button
-            onClick={() => setDarkMode(!darkMode)}
-            className="text-gray-700 dark:text-gray-200"
-          >
-            {darkMode ? <Sun size={20} /> : <Moon size={20} />}
-          </button>
+        <div className="lg:hidden flex items-center gap-4">
           <button onClick={() => setNavOpen(!navOpen)}>
             {navOpen ? (
               <X className="w-6 h-6 text-green-600" />
@@ -155,7 +124,7 @@ const Navbar = () => {
               <Menu className="w-6 h-6 text-green-600" />
             )}
           </button>
-        </div> */}
+        </div>
       </div>
 
       <div
@@ -166,40 +135,39 @@ const Navbar = () => {
         }`}
       >
         <nav className="flex flex-col gap-4">
-          {navLinks.map((link) =>
-            link.hasDropdown ? (
-              <div key="PROJECT" className="flex flex-col">
-                <span className="font-medium text-gray-800 dark:text-gray-200">
-                  PROJECT
-                </span>
-                <div className="ml-4 mt-2 flex flex-col gap-2">
-                  {projectDropdown.map((item) => (
-                    <Link
-                      key={item.name}
-                      href={item.path}
-                      onClick={() => setNavOpen(false)}
-                      className="text-sm text-gray-700 dark:text-gray-300 hover:text-green-500"
-                    >
-                      {item.name}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            ) : (
-              <Link
-                key={link.name}
-                href={link.path}
-                onClick={() => setNavOpen(false)}
-                className={`text-base font-medium ${
-                  pathname === link.path
-                    ? "text-green-600 dark:text-green-400"
-                    : "text-gray-800 dark:text-gray-200"
-                } hover:text-green-500`}
-              >
-                {link.name}
-              </Link>
-            )
-          )}
+          {navLinks.map((link) => (
+            <Link
+              key={link.name}
+              href={link.path}
+              onClick={() => setNavOpen(false)}
+              className={`text-base font-medium ${
+                pathname === link.path
+                  ? "text-green-600 dark:text-green-400"
+                  : "text-gray-800 dark:text-gray-200"
+              } hover:text-green-500`}
+            >
+              {link.name}
+            </Link>
+          ))}
+
+          <div className="flex flex-col">
+            <span className="font-medium text-gray-800 dark:text-gray-200">
+              PROJECT
+            </span>
+            <div className="ml-4 mt-2 flex flex-col gap-2">
+              {projectDropdown.map((item) => (
+                <Link
+                  key={item.name}
+                  href={item.path}
+                  onClick={() => setNavOpen(false)}
+                  className="text-sm text-gray-700 dark:text-gray-300 hover:text-green-500"
+                >
+                  {item.name}
+                </Link>
+              ))}
+            </div>
+          </div>
+
           <button
             onClick={() => {
               handleAuthClick();
