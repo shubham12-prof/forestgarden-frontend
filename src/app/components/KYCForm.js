@@ -43,11 +43,11 @@ const KYCForm = ({
 
   return (
     <section
-      className={`p-6 rounded-md shadow-lg max-w-4xl mx-auto ${
-        isDark ? "bg-gray-900 text-white" : "bg-gray-100 text-gray-800"
+      className={`p-6 rounded-md mt-18 shadow-lg max-w-4xl mx-auto ${
+        isDark ? "bg-gray-900 text-white" : "bg-gray-100 text-gray-800 "
       }`}
     >
-      <h2 className="text-2xl uppercase font-semibold mb-4 text-center mt-8">
+      <h2 className="text-3xl font-extrabold text-center mb-12 mt-4 text-transparent bg-clip-text bg-gradient-to-r from-green-600 via-emerald-500 to-lime-400 tracking-wide animate-fade-in uppercase">
         Shakumbhari Devi Forest Garden
       </h2>
 
@@ -122,19 +122,28 @@ const KYCForm = ({
             );
           })}
 
-          <div key="isAdmin" className="flex flex-col">
-            <label className="mb-1 font-medium">Is Admin</label>
-            <input
-              type="checkbox"
-              name="isAdmin"
-              checked={formData.isAdmin || false}
-              onChange={handleChange}
-              className={`p-3 border rounded-md focus:outline-none focus:ring-2 ${
-                isDark
-                  ? "bg-gray-800 border-gray-600 text-white focus:ring-blue-400"
-                  : "border-gray-300 focus:ring-blue-500"
-              }`}
-            />
+          <div key="isAdmin" className="flex items-center gap-4 mb-4">
+            <label htmlFor="isAdmin" className="font-medium text-sm">
+              Is Admin
+            </label>
+
+            <label className="relative inline-flex items-center cursor-pointer">
+              <input
+                type="checkbox"
+                id="isAdmin"
+                name="isAdmin"
+                checked={formData.isAdmin || false}
+                onChange={handleChange}
+                className="sr-only peer"
+              />
+              <div
+                className={`w-11 h-6 rounded-full transition-colors duration-300
+      peer-checked:bg-green-500 peer-focus:outline-none
+      ${isDark ? "bg-gray-700" : "bg-gray-300"}
+    `}
+              ></div>
+              <div className="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-transform duration-300 peer-checked:translate-x-5"></div>
+            </label>
           </div>
         </div>
       )}

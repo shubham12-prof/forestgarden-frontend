@@ -8,7 +8,7 @@ import { motion, AnimatePresence } from "framer-motion";
 const Navbar = () => {
   const [navOpen, setNavOpen] = useState(false);
   const [showProjectDropdown, setShowProjectDropdown] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
+  // const [darkMode, setDarkMode] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
@@ -42,13 +42,13 @@ const Navbar = () => {
     // { name: "Completed Projects", path: "/project/completed" },
   ];
 
-  useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-  }, [darkMode]);
+  // useEffect(() => {
+  //   if (darkMode) {
+  //     document.documentElement.classList.add("dark");
+  //   } else {
+  //     document.documentElement.classList.remove("dark");
+  //   }
+  // }, [darkMode]);
 
   return (
     <header className="bg-white dark:bg-gray-900 shadow-md fixed top-0 left-0 w-full z-50 transition-colors duration-300">
@@ -126,12 +126,12 @@ const Navbar = () => {
             )
           )}
 
-          <button
+          {/* <button
             onClick={() => setDarkMode(!darkMode)}
             className="text-gray-700 dark:text-gray-200 hover:text-green-500 dark:hover:text-green-400 transition"
           >
             {darkMode ? <Sun size={20} /> : <Moon size={20} />}
-          </button>
+          </button> */}
 
           <button
             onClick={handleAuthClick}
@@ -141,7 +141,7 @@ const Navbar = () => {
           </button>
         </nav>
 
-        <div className="lg:hidden flex items-center gap-4">
+        {/* <div className="lg:hidden flex items-center gap-4">
           <button
             onClick={() => setDarkMode(!darkMode)}
             className="text-gray-700 dark:text-gray-200"
@@ -155,7 +155,7 @@ const Navbar = () => {
               <Menu className="w-6 h-6 text-green-600" />
             )}
           </button>
-        </div>
+        </div> */}
       </div>
 
       <div
