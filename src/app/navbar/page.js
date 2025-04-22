@@ -83,7 +83,7 @@ const Navbar = () => {
             onMouseLeave={() => setShowProjectDropdown(false)}
           >
             <div className="flex items-center gap-1 text-[15px] font-medium text-gray-800 dark:text-gray-100 hover:text-green-500 cursor-pointer">
-              PROJECT
+              PROJECTS
               <ChevronDown size={16} />
             </div>
             <AnimatePresence>
