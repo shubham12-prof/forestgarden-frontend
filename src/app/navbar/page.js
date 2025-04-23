@@ -4,6 +4,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { motion } from "framer-motion";
+import { toast } from "react-toastify";
 
 const Navbar = () => {
   const [navOpen, setNavOpen] = useState(false);
@@ -20,10 +21,14 @@ const Navbar = () => {
     if (isLoggedIn) {
       localStorage.removeItem("token");
       setIsLoggedIn(false);
-      router.push("/auth/login");
-    } else {
-      router.push("/auth/register");
+      toast.success("You have been logged out", {
+        position: "top-right",
+        autoClose: 3000,
+        pauseOnHover: true,
+        draggable: true,
+      });
     }
+    router.push("/auth/login");
   };
 
   const navLinks = [
