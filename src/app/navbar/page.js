@@ -2,12 +2,11 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Menu, X, ChevronDown } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X } from "lucide-react";
+import { motion } from "framer-motion";
 
 const Navbar = () => {
   const [navOpen, setNavOpen] = useState(false);
-  const [showProjectDropdown, setShowProjectDropdown] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
@@ -33,10 +32,6 @@ const Navbar = () => {
     { name: "PROPERTY", path: "/property" },
     { name: "ABOUT", path: "/about" },
     { name: "CONTACT", path: "/contactMain" },
-  ];
-
-  const projectDropdown = [
-    { name: "Ongoing Projects", path: "/project/ongoing" },
   ];
 
   return (
@@ -76,37 +71,6 @@ const Navbar = () => {
               {link.name}
             </Link>
           ))}
-
-          <div
-            className="relative group"
-            onMouseEnter={() => setShowProjectDropdown(true)}
-            onMouseLeave={() => setShowProjectDropdown(false)}
-          >
-            <div className="flex items-center gap-1 text-[15px] font-medium text-gray-800 dark:text-gray-100 hover:text-green-500 cursor-pointer">
-              PROJECTS
-              <ChevronDown size={16} />
-            </div>
-            <AnimatePresence>
-              {showProjectDropdown && (
-                <motion.div
-                  initial={{ opacity: 0, y: -5 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -5 }}
-                  className="absolute top-full mt-2 bg-white dark:bg-gray-800 rounded-lg shadow-lg p-2 w-52 z-50"
-                >
-                  {projectDropdown.map((item) => (
-                    <Link
-                      key={item.name}
-                      href={item.path}
-                      className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-green-100 dark:hover:bg-green-900 rounded-md"
-                    >
-                      {item.name}
-                    </Link>
-                  ))}
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
 
           <button
             onClick={handleAuthClick}
@@ -149,24 +113,6 @@ const Navbar = () => {
               {link.name}
             </Link>
           ))}
-
-          <div className="flex flex-col">
-            <span className="font-medium text-gray-800 dark:text-gray-200">
-              PROJECT
-            </span>
-            <div className="ml-4 mt-2 flex flex-col gap-2">
-              {projectDropdown.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.path}
-                  onClick={() => setNavOpen(false)}
-                  className="text-sm text-gray-700 dark:text-gray-300 hover:text-green-500"
-                >
-                  {item.name}
-                </Link>
-              ))}
-            </div>
-          </div>
 
           <button
             onClick={() => {
