@@ -83,7 +83,7 @@ const Dashboard = () => {
   const handleUserAdd = async () => {
     if (!formData.email || !/\S+@\S+\.\S+/.test(formData.email)) {
       setMessage("Please enter a valid email address.");
-      alert("Please enter an email address.");
+      alert("Please enter an email address first.");
       return;
     }
 
