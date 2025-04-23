@@ -69,9 +69,7 @@ const KYCForm = ({
           {Object.entries(formData).map(([key, value]) => {
             if (key === "gender" || key === "maritalStatus") {
               const options =
-                key === "gender"
-                  ? ["Male", "Female", "Other"]
-                  : ["Married", "Single"];
+                key === "gender" ? ["Male", "Female"] : ["Married", "Single"];
               return (
                 <div key={key} className="flex flex-col space-y-2">
                   <label className="mb-1 font-medium">
@@ -112,6 +110,7 @@ const KYCForm = ({
                   placeholder={key.replace(/([A-Z])/g, " $1")}
                   value={value}
                   onChange={handleChange}
+                  required
                   className={`p-3 border rounded-md focus:outline-none focus:ring-2 ${
                     isDark
                       ? "bg-gray-800 border-gray-600 text-white focus:ring-blue-400"

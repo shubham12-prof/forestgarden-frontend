@@ -81,6 +81,18 @@ const Dashboard = () => {
   };
 
   const handleUserAdd = async () => {
+    if (!formData.email || !/\S+@\S+\.\S+/.test(formData.email)) {
+      setMessage("Please enter a valid email address.");
+      alert("Please enter an email address.");
+      return;
+    }
+
+    if (!formData.password || formData.password.length < 6) {
+      setMessage("Password must be at least 6 characters long.");
+      alert("Please enter a Password");
+      return;
+    }
+
     try {
       const token = localStorage.getItem("token");
       const cleanedFormData = { ...formData };
@@ -153,7 +165,10 @@ const Dashboard = () => {
         myAddedUsers={myAddedUsers}
       />
 
-      <div className="w-full h-[80vh] overflow-auto p-6 bg-gray-50 rounded-xl shadow">
+      <div className="w-full overflow-auto p-6 bg-gray-50 rounded-xl shadow">
+        <h1 className="text-2xl font-extrabold text-center mb-12 mt-4 text-transparent bg-clip-text bg-gradient-to-r from-green-600 via-emerald-500 to-lime-400 tracking-wide animate-fade-in uppercase">
+          🌳 User Tree Structure
+        </h1>
         <div className="min-w-max mx-auto">
           {tree ? (
             <TreeNode node={tree} />

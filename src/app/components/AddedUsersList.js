@@ -126,7 +126,7 @@ const AddedUsersList = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 p-6">
+    <div className="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 p-6">
       <h2 className="text-3xl font-semibold mb-6 text-center text-green-600">
         Users You Added
       </h2>

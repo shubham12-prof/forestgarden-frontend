@@ -55,6 +55,7 @@ export default function Dashboard() {
         value={formData.email}
         onChange={handleChange}
         className="block mb-2 p-2 border border-gray-300 rounded"
+        required
       />
       <input
         type="password"
@@ -63,6 +64,7 @@ export default function Dashboard() {
         value={formData.password}
         onChange={handleChange}
         className="block mb-4 p-2 border border-gray-300 rounded"
+        required
       />
 
       <button
