@@ -63,19 +63,19 @@ const Navbar = () => {
         </Link>
 
         <nav className="hidden lg:flex gap-4 items-center relative">
-          {navLinks.map((link) => (
-            <Link
-              key={link.name}
-              href={link.path}
-              className={`text-[15px] font-medium ${
-                pathname === link.path
-                  ? "text-green-600 dark:text-green-400"
-                  : "text-gray-800 dark:text-gray-200"
-              } hover:text-green-500 transition-all duration-200`}
-            >
-              {link.name}
-            </Link>
-          ))}
+          {!isLoggedIn &&
+            navLinks.map((link) => (
+              <Link
+                key={link.name}
+                href={link.path}
+                className={`text-[15px] font-medium ${pathname === link.path
+                    ? "text-green-600 dark:text-green-400"
+                    : "text-gray-800 dark:text-gray-200"
+                  } hover:text-green-500 transition-all duration-200`}
+              >
+                {link.name}
+              </Link>
+            ))}
 
           <button
             onClick={handleAuthClick}
@@ -97,27 +97,24 @@ const Navbar = () => {
       </div>
 
       <div
-        className={`lg:hidden absolute top-full left-0 w-full bg-white dark:bg-gray-900 px-6 pt-4 pb-6 shadow-md z-40 transition-all duration-300 ease-in-out ${
-          navOpen
-            ? "opacity-100 pointer-events-auto"
-            : "opacity-0 pointer-events-none"
-        }`}
+        className={`lg:hidden absolute top-full left-0 w-full bg-white dark:bg-gray-900 px-6 pt-4 pb-6 shadow-md z-40 transition-all duration-300 ease-in-out ${navOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+          }`}
       >
         <nav className="flex flex-col gap-4">
-          {navLinks.map((link) => (
-            <Link
-              key={link.name}
-              href={link.path}
-              onClick={() => setNavOpen(false)}
-              className={`text-base font-medium ${
-                pathname === link.path
-                  ? "text-green-600 dark:text-green-400"
-                  : "text-gray-800 dark:text-gray-200"
-              } hover:text-green-500`}
-            >
-              {link.name}
-            </Link>
-          ))}
+          {!isLoggedIn &&
+            navLinks.map((link) => (
+              <Link
+                key={link.name}
+                href={link.path}
+                onClick={() => setNavOpen(false)}
+                className={`text-base font-medium ${pathname === link.path
+                    ? "text-green-600 dark:text-green-400"
+                    : "text-gray-800 dark:text-gray-200"
+                  } hover:text-green-500`}
+              >
+                {link.name}
+              </Link>
+            ))}
 
           <button
             onClick={() => {

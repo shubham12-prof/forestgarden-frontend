@@ -13,18 +13,29 @@ const EditUserForm = ({
         {label}
       </label>
       {isAdminField ? (
-        <div className="mb-3">
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-            Admin:
+        <div className="flex items-center justify-between mt-2">
+          <label
+            htmlFor={key}
+            className="text-sm font-medium text-gray-700 dark:text-gray-300"
+          >
+            {editFormData.isAdmin ? "On" : "Off"}
           </label>
-          <input
-            type="checkbox"
-            checked={editFormData.isAdmin || false}
-            onChange={(e) =>
-              setEditFormData({ ...editFormData, isAdmin: e.target.checked })
-            }
-            className="mt-1 p-2 w-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-black dark:text-white rounded-lg"
-          />
+          <label className="relative inline-flex items-center cursor-pointer">
+            <input
+              type="checkbox"
+              id={key}
+              checked={editFormData.isAdmin || false}
+              onChange={(e) =>
+                setEditFormData({
+                  ...editFormData,
+                  isAdmin: e.target.checked,
+                })
+              }
+              className="sr-only peer"
+            />
+            <div className="w-11 h-6 bg-gray-300 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-green-500 dark:peer-focus:ring-green-800 rounded-full peer dark:bg-gray-700 peer-checked:bg-green-600 transition-all duration-300"></div>
+            <div className="absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition peer-checked:translate-x-full peer-checked:bg-white"></div>
+          </label>
         </div>
       ) : (
         <input
@@ -69,7 +80,7 @@ const EditUserForm = ({
             {renderInput("Aadhaar No", "aadhaarNo")}
             {renderInput("Sponsor Name", "sponsorName")}
             {renderInput("Sponsor ID", "sponsorId")}
-            {renderInput("Admin", "isAdmin", "checkbox", true)}{" "}
+            {renderInput("Admin", "isAdmin", "checkbox", true)}
           </div>
 
           <div className="flex justify-between mt-6">

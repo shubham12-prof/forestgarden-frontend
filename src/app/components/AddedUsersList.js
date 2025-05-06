@@ -39,9 +39,11 @@ const AddedUsersList = () => {
       );
       if (!response.ok) {
         const errorData = await response.json();
+
         throw new Error(errorData.message || "Failed to fetch added users");
       }
       const data = await response.json();
+
       setMyAddedUsers(data.children || []);
       setError(null);
     } catch (err) {
@@ -100,13 +102,7 @@ const AddedUsersList = () => {
           body: JSON.stringify(editFormData),
         }
       );
-      console.log(
-        "URL:",
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/users/${editFormData._id}`
-      );
-      console.log("Body being sent:", editFormData);
 
-      console.log("token", localStorage.getItem("token"));
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -117,7 +113,7 @@ const AddedUsersList = () => {
       setEditFormData(null);
       setTimeout(() => setSuccessMsg(""), 3000);
     } catch (err) {
-      setError(err.message || "Failed to update user");
+      alert(err.message || "Failed to update user");
     }
   };
 

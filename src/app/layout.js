@@ -15,6 +15,10 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+export const nextConfig = {
+  reactStrictMode: true,
+};
+
 export const metadata = {
   title: "forest-garden.in",
   description: "Discover plots, homes, and office spaces hand-picked for you.",
@@ -42,3 +46,4 @@ export default function RootLayout({ children }) {
     </html>
   );
 }
+
